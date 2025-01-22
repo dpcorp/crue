@@ -5,15 +5,8 @@
         <div class="col-12 mb-3">
             <div class="row">
                 <div class="col-12 col-md-6 text-start">
-                    <h4 class="fw-bold">Lista de roles</h4>
+                    <h4 class="fw-bold">Lista de fuera de servicio</h4>
                 </div>
-                @can('admin.roles.create')
-                    <div class="col-12 col-md-6 text-end">
-                        <a href="{{ route('admin.roles.create') }}" class="btn btn-dark rounded btn-sm">
-                            Crear rol
-                        </a>
-                    </div>
-                @endcan
             </div>
         </div>
         @if (session('message'))
@@ -81,11 +74,11 @@
                 language: {
                     decimal: "",
                     emptyTable: "No hay información",
-                    info: "Mostrando _START_ a _END_ de _TOTAL_ Roles",
-                    infoEmpty: "Mostrando 0 to 0 of 0 Roles",
-                    infoFiltered: "(Filtrado de _MAX_ total Roles)",
+                    info: "Mostrando _START_ a _END_ de _TOTAL_ fuera de servicio",
+                    infoEmpty: "Mostrando 0 to 0 of 0 fuera de servicio",
+                    infoFiltered: "(Filtrado de _MAX_ total fuera de servicio)",
                     thousands: ",",
-                    lengthMenu: "Mostrar _MENU_ Roles",
+                    lengthMenu: "Mostrar _MENU_ fuera de servicio",
                     search: "Buscar:",
                     zeroRecords: "Sin resultados encontrados",
                     paginate: {

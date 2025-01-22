@@ -7,7 +7,7 @@
                 <div class="col-12 col-md-6 text-start">
                     <h4 class="fw-bold">Lista de ocupaciones</h4>
                 </div>
-                @can('admin.ips.create')
+                @can('admin.occupations.create')
                     <div class="col-12 col-md-6 text-end">
                         <a href="{{ route('admin.occupations.create') }}" class="btn btn-dark rounded btn-sm">
                             Importar ocupaciones
@@ -36,7 +36,7 @@
                         <table id="basic-datatables" class="display table table-hover " style="width: 100%">
                             <thead>
                                 <tr>
-                                    <th>Nombre</th>
+                                    <th>IPS</th>
                                     <th>Fecha</th>
                                     <th>Urgencias</th>
                                     <th>Hospitalización</th>
