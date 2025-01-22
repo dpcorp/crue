@@ -106,7 +106,27 @@
             </div>
         </div>
 
+        <div class="col-12 mb-4" id="errors_list">
+            <div class="card shadow-sm">
+                <div class="card-header text-white h5"><i class="fa-solid fa-list"></i>Lista de errores</div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered nowrap table-hover" style="width: 100%" id="TableErrors">
+                            <thead>
+                                <tr>
+                                    <th>IPS</th>
+                                    <th>Error</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
     </div>
-    <script src="{{ asset('assets/js/app/occupations/LoadFile.js?v=1.0.0') }}" defer></script>
+    <script src="{{ asset('assets/js/app/occupations/LoadFile.js?v=1.0.1') }}" defer></script>
 @endsection

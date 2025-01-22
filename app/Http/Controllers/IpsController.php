@@ -20,6 +20,11 @@ class IpsController extends Controller
         return view('ips.create');
     }
 
+    public function getComplexity()
+    {
+        return view('ips.complexity');
+    }
+
     public function loadFile(Request $request)
     {
         try {
@@ -50,12 +55,21 @@ class IpsController extends Controller
                 }
             }
 
-            $ips = Ips::get()->pluck('name')->toArray();
+            // $ips = Ips::get()->pluck('name')->toArray();
+            $ips = Ips::get(["id", "name", 'date', 'time']);
+            $indexed_ips = [];
+            foreach ($ips as $ip) {
+                $indexed_ips[$ip->name] = [
+                    'id' => $ip->id,
+                    'date' => $ip->date,
+                    'time' => $ip->time
+                ];
+            }
 
             $to_create = 0;
             $to_update = 0;
             $synchronize_data = [];
-
+            $synchronize_errors = [];
             $chunkSize = 40;
             $results_chunks = array_chunk($results, $chunkSize);
 
@@ -90,7 +104,18 @@ class IpsController extends Controller
                     $uci_neonatal = $result[65] ? $result[65] : 0;
 
 
-                    if (in_array($name, $ips)) {
+                    if (in_array($name, isset($indexed_ips[$name]) ? array_keys($indexed_ips) : [])) {
+
+                        $ips_in_db = new DateTime($indexed_ips[$name]['date'] . ' ' . $indexed_ips[$name]['time']);
+                        $ips_to_import = new DateTime("$date $time");
+
+                        if ($ips_in_db > $ips_to_import) {
+                            $synchronize_errors[] = [
+                                'name' => $name,
+                                'message' => 'La fecha y hora de la IPS ' . $name . ' en la base de datos es mayor que la del archivo.' . '<br>' . 'Fecha y hora de la base de datos: ' . $indexed_ips[$name]['date'] . ' ' . $indexed_ips[$name]['time'] . '. Fecha y hora del archivo: ' . $date . ' ' . $time
+                            ];
+                            continue;
+                        }
                         $to_update++;
                     } else {
                         $to_create++;
@@ -123,10 +148,11 @@ class IpsController extends Controller
                 'status' => 200,
                 'data' => $synchronize_data,
                 'to_create' => $to_create,
-                'to_update' => $to_update
+                'to_update' => $to_update,
+                'errors' => $synchronize_errors
             ]);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Error al procesar el archivo: ' . $e->getMessage()], 500);
+            return response()->json(['error' => 'Error al procesar el archivo: ' . $e->getMessage() . ' (' . $e->getFile() . ':' . $e->getLine() . ')'], 500);
         }
     }
 
@@ -162,6 +188,93 @@ class IpsController extends Controller
             ]);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Error al crear el registro: ' . $e->getMessage()], 500);
+        }
+    }
+
+    public function loadComplexity(Request $request)
+    {
+
+        try {
+            // Cargar y procesar el archivo
+            $file = $request->file('file');
+            $data = Excel::toArray([], $file);
+            $data = $data[0];
+            $keys = $data[0];
+            unset($data[0]);
+
+            if (count($keys) != 2) {
+                return response()->json([
+                    'message' => 'El archivo no contiene la estructura correcta. Columnas del archivo: ' . count($keys) . ', Columnas esperadas: 2',
+                    'status' => 400
+                ]);
+            }
+
+            // $ips = Ips::get()->pluck('name')->toArray();
+            $ips = Ips::get(["id", "name"]);
+            $indexed_ips = [];
+            foreach ($ips as $ip) {
+                $indexed_ips[$ip->name] = $ip->id;
+            }
+
+            $to_update = 0;
+            $synchronize_data = [];
+            $synchronize_errors = [];
+            $ips_in_array = [];
+            $chunkSize = 40;
+            $results_chunks = array_chunk($data, $chunkSize);
+
+            foreach ($results_chunks as $chunk) {
+                foreach ($chunk as $result) {
+                    $name = trim($result[0]);
+                    $complexity = trim($result[1]);
+
+
+                    if (!in_array($name, isset($indexed_ips[$name]) ? array_keys($indexed_ips) : [])) {
+                        $synchronize_errors[] = [
+                            'name' => $name,
+                            'message' => 'No existe la IPS: ' . $name
+                        ];
+                        continue;
+                    } else {
+                        if (in_array($name, $ips_in_array)) {
+                            $synchronize_errors[] = [
+                                'name' => $name,
+                                'message' => 'La IPS: ' . $name . ' ya fue procesada'
+                            ];
+                            continue;
+                        }
+
+                        $to_update++;
+                    }
+
+                    $synchronize_data[] = [
+                        'eps_id' => $indexed_ips[$name],
+                        'complexity' => $complexity,
+                    ];
+                    $ips_in_array[] = $name;
+                }
+            }
+
+            return response()->json([
+                'message' => 'Archivo procesado correctamente',
+                'status' => 200,
+                'data' => $synchronize_data,
+                'to_update' => $to_update,
+                'errors' => $synchronize_errors
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error al procesar el archivo: ' . $e->getMessage() . ' (' . $e->getFile() . ':' . $e->getLine() . ')'], 500);
+        }
+    }
+
+    public function insertComplexity(Request $request)
+    {
+        try {
+            foreach ($request->ips as $ip) {
+                Ips::where('id', $ip['eps_id'])->update(['complexity' => $ip['complexity']]);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error al cargar las IPS: ' . $e->getMessage() . ' (' . $e->getFile() . ':' . $e->getLine() . ')'], 500);
         }
     }
 

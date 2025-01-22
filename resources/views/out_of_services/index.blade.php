@@ -63,7 +63,7 @@
                 fixedHeader: true,
                 responsive: true,
                 order: [
-                    [0, "DESC"]
+                    [1, "DESC"]
                 ],
                 paging: true,
                 lengthMenu: [

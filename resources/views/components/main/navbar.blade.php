@@ -40,7 +40,7 @@
             <li class="nav-item topbar-user dropdown hidden-caret">
                 <a class="dropdown-toggle profile-pic" data-bs-toggle="dropdown" href="#" aria-expanded="false">
                     <div class="avatar-sm">
-                        <img src="{{ asset('assets/images/app/dark_CRUE.png') }}" alt="..."
+                        <img src="{{ asset('assets/images/app/version_alcaldia.svg') }}" alt="..."
                             class="avatar-img rounded-circle" />
                     </div>
                     <span class="profile-username">
@@ -53,7 +53,7 @@
                         <li>
                             <div class="user-box">
                                 <div class="avatar-lg">
-                                    <img src="{{ asset('assets/images/app/dark_CRUE.png') }}" alt="image profile"
+                                    <img src="{{ asset('assets/images/app/version_alcaldia.svg') }}" alt="image profile"
                                         class="avatar-img rounded" />
                                 </div>
                                 <div class="u-text">

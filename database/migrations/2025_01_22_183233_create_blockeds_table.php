@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ips', function (Blueprint $table) {
+        Schema::create('blockeds', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 500)->unique();
-            $table->string('complexity')->nullable();
+            $table->unsignedBigInteger('ips_id');
+
             $table->date('date');
             $table->time('time');
 
@@ -35,6 +35,8 @@ return new class extends Migration
 
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
+
+            $table->foreign('ips_id')->references('id')->on('ips')->onDelete('cascade');
         });
     }
 
@@ -43,6 +45,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ips');
+        Schema::dropIfExists('blockeds');
     }
 };

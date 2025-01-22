@@ -33,8 +33,11 @@ class UserSeeder extends Seeder
             'admin.occupations.create',
             'admin.occupations.show',
 
-
             'admin.out_of_services.index',
+
+            'admin.blockeds.index',
+
+            'admin.saturations.index'
         ];
 
         User::create([

@@ -1,16 +1,28 @@
 @extends('layouts.main')
-@section('title', 'IPS')
+@section('title', 'Capacidad')
 @section('content')
+    <style>
+        .word-break {
+            word-break: break-word;
+            /* Para romper palabras largas */
+            white-space: normal;
+            /* Para permitir múltiples líneas */
+        }
+    </style>
     <div class="row">
         <div class="col-12 mb-3">
             <div class="row">
                 <div class="col-12 col-md-6 text-start">
-                    <h4 class="fw-bold">Lista de ips</h4>
+                    <h4 class="fw-bold">Lista de capacidad</h4>
                 </div>
+
                 @can('admin.ips.create')
                     <div class="col-12 col-md-6 text-end">
+                        <a href="{{ route('admin.ips.complexity') }}" class="btn btn-dark rounded btn-sm">
+                            Importar complejidad
+                        </a>
                         <a href="{{ route('admin.ips.create') }}" class="btn btn-dark rounded btn-sm">
-                            Importar ips
+                            Importar capacidad
                         </a>
                     </div>
                 @endcan
@@ -37,6 +49,7 @@
                             <thead>
                                 <tr>
                                     <th>ips</th>
+                                    <th>Complejidad</th>
                                     <th>Fecha</th>
                                     <th>Urgencias</th>
                                     <th>Hospitalización</th>
@@ -48,6 +61,7 @@
                                 @foreach ($ips as $ips)
                                     <tr>
                                         <td>{{ $ips->name }}</td>
+                                        <td>{{ $ips->complexity ? $ips->complexity : 'N/A' }}</td>
                                         <td>{{ $ips->date }} {{ $ips->time }}</td>
 
                                         <td>
@@ -73,9 +87,6 @@
                                                     @endif
                                                 </div>
                                             </div>
-
-                                            <br>
-
                                         </td>
 
                                         <td>
@@ -211,7 +222,7 @@
                 fixedHeader: true,
                 responsive: true,
                 order: [
-                    [0, "DESC"]
+                    [2, "DESC"]
                 ],
                 paging: true,
                 lengthMenu: [
@@ -226,11 +237,11 @@
                 language: {
                     decimal: "",
                     emptyTable: "No hay información",
-                    info: "Mostrando _START_ a _END_ de _TOTAL_ IPS",
-                    infoEmpty: "Mostrando 0 to 0 of 0 IPS",
-                    infoFiltered: "(Filtrado de _MAX_ total IPS)",
+                    info: "Mostrando _START_ a _END_ de _TOTAL_ Capacidad",
+                    infoEmpty: "Mostrando 0 to 0 of 0 Capacidad",
+                    infoFiltered: "(Filtrado de _MAX_ total Capacidad)",
                     thousands: ",",
-                    lengthMenu: "Mostrar _MENU_ IPS",
+                    lengthMenu: "Mostrar _MENU_ Capacidad",
                     search: "Buscar:",
                     zeroRecords: "Sin resultados encontrados",
                     paginate: {

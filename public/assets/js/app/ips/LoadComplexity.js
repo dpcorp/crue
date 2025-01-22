@@ -4,7 +4,6 @@ const btnImport = document.querySelector("#btn-import");
 
 const total_ips = document.querySelector("#total_ips");
 const to_update = document.querySelector("#to_update");
-const to_create = document.querySelector("#to_create");
 const content = document.querySelector("#content");
 const errorsList = document.querySelector("#errors_list");
 
@@ -33,7 +32,7 @@ function loadFile() {
     }
 
     $.ajax({
-        url: `${window.appConfig.baseUrl}admin/ips/load_file`,
+        url: `${window.appConfig.baseUrl}admin/ips/load_complexity`,
         type: "POST",
         data: formData,
         contentType: false,
@@ -51,9 +50,8 @@ function loadFile() {
                 });
             }
 
-            total_ips.innerHTML = response.to_update + response.to_create;
+            total_ips.innerHTML = response.to_update;
             to_update.innerHTML = response.to_update;
-            to_create.innerHTML = response.to_create;
             content.style.display = "";
 
             synchronize_data = response.data;
@@ -88,7 +86,7 @@ async function UpsertIPS() {
                         "content"
                     ),
                 },
-                url: `${window.appConfig.baseUrl}admin/ips/to_create`,
+                url: `${window.appConfig.baseUrl}admin/ips/insert_complexity`,
                 type: "POST",
                 data: {
                     ips: batch,
@@ -107,7 +105,7 @@ async function UpsertIPS() {
     RemoveLoading();
     content.style.display = "none";
     return Swal.fire({
-        text: `Todos las IPS fueron sincronizadas al sistema`,
+        text: `La complejidad de las IPS fueron actualizadas con exito`,
         icon: "success",
         confirmButtonText: "Aceptar",
     });

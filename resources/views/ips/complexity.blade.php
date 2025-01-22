@@ -5,7 +5,7 @@
         <div class="col-12 mb-3">
             <div class="row">
                 <div class="col-12 col-md-6 text-start">
-                    <h4 class="fw-bold">Importar capacidad</h4>
+                    <h4 class="fw-bold">Importar complejidad</h4>
                 </div>
                 <div class="col-12 col-md-6 text-end">
                     <a href="{{ route('admin.ips.index') }}" class="btn btn-dark rounded btn-sm">
@@ -20,7 +20,7 @@
                     <form id="uploadExcelForm" enctype="multipart/form-data">
                         @csrf
                         <div class="col-12 mb-3">
-                            <label for="formFile" class="form-label">Selecciona el archivo de "Capacidad"</label>
+                            <label for="formFile" class="form-label">Selecciona el archivo de "Complejidad"</label>
                             <input class="form-control" type="file" id="file" name="file"
                                 accept=".xlsx, .xls, .csv">
                         </div>
@@ -55,7 +55,7 @@
     </div>
 
     <div class="row" style="display: none" id="content">
-        <div class="col-12 col-lg-12  col-xxl-4">
+        <div class="col-12 col-lg-12  col-xxl-6">
             <div class="card shadow-sm">
                 <div class="card-body d-flex align-items-center justify-content-center px-4" style="height: 7em;">
                     <div class="col">
@@ -74,7 +74,7 @@
         </div>
 
 
-        <div class="col-12 col-lg-12  col-xxl-4">
+        <div class="col-12 col-lg-12  col-xxl-6">
             <div class="card shadow-sm">
                 <div class="card-body d-flex align-items-center justify-content-center px-4" style="height: 7em;">
                     <div class="col">
@@ -86,24 +86,6 @@
                         </div>
                         <div class="col-12 text-end">
                             <small class="text-muted"><strong>Por actualizar</strong></small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12 col-lg-12  col-xxl-4">
-            <div class="card shadow-sm">
-                <div class="card-body d-flex align-items-center justify-content-center px-4" style="height: 7em;">
-                    <div class="col">
-                        <i class="fas fa-plus fa-3x"></i>
-                    </div>
-                    <div class="col">
-                        <div class="col-12 text-end">
-                            <h3><b id="to_create">0</b></h3>
-                        </div>
-                        <div class="col-12 text-end">
-                            <small class="text-muted"><strong>Por crear</strong></small>
                         </div>
                     </div>
                 </div>
@@ -144,5 +126,5 @@
 
 
     </div>
-    <script src="{{ asset('assets/js/app/ips/LoadFile.js?v=1.0.1') }}" defer></script>
+    <script src="{{ asset('assets/js/app/ips/LoadComplexity.js?v=1.0.1') }}" defer></script>
 @endsection

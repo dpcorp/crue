@@ -12,7 +12,9 @@ trait RoleTrait
             "permissions" => "Permisos",
             "occupations" => "Ocupaciones",
             "IPS" => "IPS",
-            "out_of_services" => "Fuera de Servicio"
+            "out_of_services" => "Fuera de Servicio",
+            "blockeds" => "Bloqueos",
+            "saturations" => "Saturaciones",
         ];
     }
 }

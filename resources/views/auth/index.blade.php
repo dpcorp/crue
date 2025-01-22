@@ -14,7 +14,7 @@
             /* Evita que las imágenes se desborden */
             position: relative;
             /* Necesario para el fondo fijo */
-            background-color: #212529;
+            background-color: #ffffff;
             /* Imagen de fondo */
             background-size: cover;
             /* Ajusta la imagen para cubrir el contenedor */
@@ -33,9 +33,9 @@
             /* Ajusta según sea necesario */
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 450px;
+            width: 300px;
             /* Cambia el tamaño según sea necesario */
-            max-width: 450px;
+            max-width: 300px;
             /* Un ancho máximo opcional para la imagen interna */
         }
 
@@ -50,7 +50,8 @@
                 <div class="row h-100 p-4">
                     <div class="login-image-col col-12 ">
                         <div>
-                            <img src="{{ asset('assets/images/app/CRUE.png') }}" alt="Background" class="internal-image" />
+                            <img src="{{ asset('assets/images/app/version_alcaldia.svg') }}" alt="Background"
+                                class="internal-image" />
                         </div>
                     </div>
                 </div>

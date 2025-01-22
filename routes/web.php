@@ -1,12 +1,14 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BlockedController;
 use App\Http\Controllers\ColorSettingController;
 use App\Http\Controllers\DashBoardController;
 use App\Http\Controllers\IpsController;
 use App\Http\Controllers\OccupationController;
 use App\Http\Controllers\OutOfServiceController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SaturationController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,14 +31,23 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     Route::resource('ips', IpsController::class);
     Route::post('ips/load_file', [IpsController::class, 'loadFile']);
     Route::post('ips/to_create', [IpsController::class, 'toCreate']);
+    Route::get('ips/complexity/get', [IpsController::class, 'getComplexity'])->name('ips.complexity');
+    Route::post('ips/load_complexity', [IpsController::class, 'loadComplexity']);
+    Route::post('ips/insert_complexity', [IpsController::class, 'insertComplexity']);
 
     Route::resource('occupations', OccupationController::class);
     Route::post('occupations/load_file', [OccupationController::class, 'loadFile']);
     Route::post('occupations/insert_occupations', [OccupationController::class, 'insertOccupations']);
+    Route::post('occupations/insert_blockeds', [OccupationController::class, 'insertBlockeds']);
     Route::post('occupations/insert_out_of_service', [OccupationController::class, 'insertOutOfService']);
 
 
     Route::resource('out_of_services', OutOfServiceController::class);
+    Route::resource('blockeds', BlockedController::class);
+
+    Route::get('saturations', [SaturationController::class, 'index'])->name('saturations.index');
+    Route::post('saturations/mathematic', [SaturationController::class, 'mathematic']);
+
 
     Route::post('color_settings/save', [ColorSettingController::class, 'save']);
 });

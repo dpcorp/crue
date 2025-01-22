@@ -35,11 +35,21 @@
                 </a>
             </li>
 
+            {{-- @can('admin.saturations.index') --}}
+            <li
+                class="nav-item {{ request()->is('admin/saturations') || request()->is('admin/saturations/*') ? 'active' : '' }}">
+                <a href="{{ route('admin.saturations.index') }}">
+                    <i class="fas fa-percentage"></i>
+                    <p>Saturaciones</p>
+                </a>
+            </li>
+            {{-- @endcan --}}
+
             @can('admin.ips.index')
                 <li class="nav-item {{ request()->is('admin/ips') || request()->is('admin/ips/*') ? 'active' : '' }}">
                     <a href="{{ route('admin.ips.index') }}">
                         <i class="fas fa-hospital"></i>
-                        <p>IPS</p>
+                        <p>Capacidad</p>
                     </a>
                 </li>
             @endcan
@@ -54,11 +64,21 @@
                 </li>
             @endcan
 
+            @can('admin.blockeds.index')
+                <li
+                    class="nav-item {{ request()->is('admin/blockeds') || request()->is('admin/blockeds/*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.blockeds.index') }}">
+                        <i class="fas fa-ban"></i>
+                        <p>Bloqueos</p>
+                    </a>
+                </li>
+            @endcan
+
             @can('admin.out_of_services.index')
                 <li
                     class="nav-item {{ request()->is('admin/out_of_services') || request()->is('admin/out_of_services/*') ? 'active' : '' }}">
                     <a href="{{ route('admin.out_of_services.index') }}">
-                        <i class="fas fa-ban"></i>
+                        <i class="fas fa-exclamation-circle"></i>
                         <p>Fuera de servicio</p>
                     </a>
                 </li>
