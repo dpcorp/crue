@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlockedController;
 use App\Http\Controllers\ColorSettingController;
 use App\Http\Controllers\DashBoardController;
+use App\Http\Controllers\IndicatorController;
 use App\Http\Controllers\IpsController;
 use App\Http\Controllers\OccupationController;
 use App\Http\Controllers\OutOfServiceController;
@@ -47,6 +48,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
 
     Route::get('saturations', [SaturationController::class, 'index'])->name('saturations.index');
     Route::post('saturations/mathematic', [SaturationController::class, 'mathematic']);
+
+    Route::get('indicators', [IndicatorController::class, 'index'])->name('indicators.index');
+    Route::get('indicators/mathematic_more_thant_hundred', [IndicatorController::class, 'mathematicMoreThantHundred']);
+    Route::get('indicators/mathematic_less_thant_hundred', [IndicatorController::class, 'mathematicLessThantHundred']);
+
 
 
     Route::post('color_settings/save', [ColorSettingController::class, 'save']);

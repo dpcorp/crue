@@ -58,6 +58,12 @@
     <link href="https://cdn.datatables.net/rowreorder/1.4.1/css/rowReorder.bootstrap4.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap4.min.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.rtl.min.css" />
+
     <script type="text/javascript" src="{{ asset('assets/js/lib/sweetalert2@11.js') }}"></script>
 
     @yield('cdn')
@@ -130,6 +136,34 @@
     <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap4.js"></script>
 
+
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <!-- select2 todo select dos que se le aplique esta etiqueta en la clase toma tanto el select 2 como los estilos
+   en el archivo app.css se modifico el tamaño de la letra clase select2--large -->
+    <script>
+        $(document).ready(function() {
+            $('.init-select2').select2({
+                theme: "bootstrap-5",
+                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' :
+                    'style',
+                placeholder: $(this).data('placeholder'),
+                selectionCssClass: 'select2--large',
+                dropdownCssClass: 'select2--medium',
+            });
+
+        });
+
+        $('.init-select2-multi').select2({
+            theme: "bootstrap-5",
+            width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+            placeholder: $(this).data('placeholder'),
+            closeOnSelect: false,
+            selectionCssClass: 'select2--medium',
+            dropdownCssClass: 'select2--medium',
+            tags: false
+        });
+    </script>
 </body>
 
 </html>

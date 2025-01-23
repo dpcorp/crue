@@ -35,15 +35,22 @@
                 </a>
             </li>
 
-            {{-- @can('admin.saturations.index') --}}
             <li
-                class="nav-item {{ request()->is('admin/saturations') || request()->is('admin/saturations/*') ? 'active' : '' }}">
-                <a href="{{ route('admin.saturations.index') }}">
-                    <i class="fas fa-percentage"></i>
-                    <p>Saturaciones</p>
+                class="nav-item {{ request()->is('admin/indicators') || request()->is('admin/indicators/*') ? 'active' : '' }}">
+                <a href="{{ route('admin.indicators.index') }}">
+                    <i class="fas fa-chart-bar"></i>
+                    <p>Indicadores</p>
                 </a>
             </li>
-            {{-- @endcan --}}
+            @can('admin.saturations.index')
+                <li
+                    class="nav-item {{ request()->is('admin/saturations') || request()->is('admin/saturations/*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.saturations.index') }}">
+                        <i class="fas fa-percentage"></i>
+                        <p>Saturaciones</p>
+                    </a>
+                </li>
+            @endcan
 
             @can('admin.ips.index')
                 <li class="nav-item {{ request()->is('admin/ips') || request()->is('admin/ips/*') ? 'active' : '' }}">
